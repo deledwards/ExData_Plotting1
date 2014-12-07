@@ -14,7 +14,10 @@ downloadRawDataIfNotPresent <- function(){
 cacheWorkingData <- function(){
     datasetFilename <- "dataset.csv"
     if(!file.exists(datasetFilename)){
-        df <- read.csv("household_power_consumption.txt",  sep = ";", stringsAsFactors = FALSE)
+        df <- read.csv("household_power_consumption.txt",  
+                       sep = ";", 
+                       stringsAsFactors = FALSE,
+                       na.strings='?',)
         df <- subset(df, Date == "1/2/2007" | Date == "2/2/2007")
         df$DateTime <- strptime(paste(df$Date, df$Time),"%d/%m/%Y%H:%M:%S" )
         df$Date <- as.Date(strptime(df$Date, "%d/%m/%Y"))
