@@ -1,12 +1,18 @@
+#download, unzip and filter raw data, if not already cached
 source("loadData.R")
 
+#read in cached data
 data <- read.csv("dataset.csv")
 
+#compute ticks for x axis
 start <-1
 endOfFirstDay <- 60*24 # 60 minutes times 24 hours
 endOfSecondDay <- endOfFirstDay * 2
 
+#prepare plot image
 png(filename = "plot4.png", width = 480, height = 480, units = "px")
+
+#prepare partition for plots, 2x2
 par(mfrow=c(2,2))
 #first partition
 plot(data$DateTime, data$Global_active_power, type="l",
@@ -40,5 +46,9 @@ plot(data$Global_reactive_power,
           xaxt="n",
           ylab="Global_reactive_power")
 axis(1, at=c(start, endOfFirstDay, endOfSecondDay), labels=c("Thu", "Fri", "Sat"))
+
+#close plot image
 dev.off()
+
+#cleanup
 rm(data)
